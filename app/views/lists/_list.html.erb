@@ -1,0 +1,23 @@
+<div id="<%= dom_id list %>">
+  <p>
+    <strong>List:</strong>
+    <%= list.id %>
+    <%= list.name %>
+    <%= list.row_order %>
+
+  </p>
+
+</div>
+
+<!--<ul data-controller="sortable"> -->
+<!--<ul data-controller="sortable" data-sortable-list-id="<%#= list.id %>">-->
+<ul data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id="<%= list.id %>">
+<!-- 이렇게 해야 tasks가 lists를 벗어나지 못하도록 함 -->
+  <%# list.tasks.each do |task| %>
+  <% list.tasks.rank(:row_order).each do |task| %>
+    <!-- <li data-sortable-id="<%#= task.id %>"> -->
+    <li data-sortable-update-url="<%= sort_task_path(task) %>">
+      <%= render task %>
+    </li>
+  <% end %>
+</ul>
